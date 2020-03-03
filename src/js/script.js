@@ -35,4 +35,81 @@ $(document).ready(function(){
 	toggleSlide('.catalog-item__link');
 	toggleSlide('.catalog-item__back');
 
-  });
+	// Modal
+
+	$('[data-modal=consultation]').on('click', function() {
+		$('.overlay, #consultation').fadeIn('slow');
+	});
+
+	$('.modal__close').on('click', function() {
+		$('.overlay, #consultation, #thanks, #order').fadeOut('slow');
+	});
+
+	$('.button_mini').each(function(i) {
+		$(this).on('click', function() {
+			$('#order .modal__descr').text($('.catalog-item__subtitle').eq(i).text());
+			$('.overlay, #order').fadeIn('slow');
+		});
+	});
+
+	
+	function valideForms (form) {
+		$(form).validate({
+			rules: {
+				name: "required",
+				phone: "required",
+				email: {
+					required: true,
+					email: true
+				}
+			},
+			messages: {
+			  name: "Пожалуйста, укажите ваше имя",
+			  phone: "Пожалуйста, укажите ваш номер",
+			  email: {
+				required: "Нам нужен ваш адрес электронной почты, чтобы связаться с вами",
+				email: "Ваш адрес электронной почты должен быть в формате name@domain.com"
+			  }
+			}
+		});
+	}
+
+	valideForms ('#consultation-form');
+	valideForms ('#consultation form');
+	valideForms ('#order form');
+
+	$('input[name=phone]').mask("+7 (999) 999-99-99");
+
+	$('form').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "mailer/smart.php",
+            data: $(this).serialize()
+        }).done(function() {
+            $(this).find("input").val("");
+            $('#consultation, #order').fadeOut();
+            $('.overlay, #thanks').fadeIn('slow');
+
+            $('form').trigger('reset');
+        });
+        return false;
+	});
+	
+
+	$(window).scroll(function() {
+		if ($(this).scrollTop() > 1600) {
+			$('.pageup').fadeIn();
+		} else {
+			$('.pageup').fadeOut();
+		}
+	});
+
+	$("a[href=#up]").click(function(){
+		const _href = $(this).attr("href");
+		$("html, body").animate({scrollTop: $(_href).offset().top+"px"});
+		return false;
+	});
+
+	new WOW().init();
+});

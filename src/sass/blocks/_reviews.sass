@@ -1,0 +1,59 @@
+.reviews 
+    padding: 71px 0
+
+    &__box 
+        margin-top: 20px
+    
+    &-item 
+        margin-top: 70px
+        display: flex
+        justify-content: space-between
+        img 
+            margin-top: 30px
+            width: 169px
+            height: 169px
+        
+
+        &__content 
+            margin-left: 60px
+            display: flex
+            flex-direction: column
+            justify-content: start
+        
+        &__title 
+            color: #0d0d0d
+            font-size: 18px
+            font-weight: 700
+        
+        &__subtitle 
+            margin: 10px 0 15px 0
+            color: #646464
+            font-size: 14px
+            font-weight: 300
+        
+        &__body 
+            color: #0d0d0d
+            font-size: 16px
+            font-weight: 300
+        
+    
+@media ( max-width: 576px )
+   
+    .reviews 
+        padding: 0
+        &-item
+            flex-direction: column
+            justify-content: center
+            align-items: center
+            margin-top: 10px
+            margin-bottom: 10px
+            border: 2px solid #f59e42 
+            border-radius: 5px
+            img
+                margin-bottom: 20px
+                border: 2px dashed #f59e42 
+                border-radius: 100%
+                padding: 3px
+        &__content 
+            align-items: center
+            margin-left: 0
